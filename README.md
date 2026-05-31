@@ -16,7 +16,8 @@ with proper walk-forward validation.
 
 Random baseline: 0.500. LSTM beats random on all 5 walk-forward folds.
 
-![Evaluation](data/evaluation.png)
+<img width="1138" height="920" alt="image" src="https://github.com/user-attachments/assets/8fcb1f38-34d8-40f7-8ebb-cc9c4e9fbfaf" />
+
 
 ## What This Project Demonstrates
 
