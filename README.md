@@ -6,11 +6,13 @@ with proper walk-forward validation.
 
 ## Results
 
-| Model       | Hit Rate (mean) | Hit Rate (std) |
-|-------------|-----------------|----------------|
-| LSTM        | 0.607           | 0.057          |
-| Transformer | 0.565           | 0.076          |
-| TCN         | 0.468           | 0.140          |
+| Model       | Hit Rate (mean) | Hit Rate (std) | Sharpe (mean) |
+|-------------|-----------------|----------------|---------------|
+| LSTM        | 0.588           | 0.052          | 0.82          |
+| Transformer | 0.577           | 0.118          | 0.69          |
+| TCN         | 0.511           | 0.128          | 0.64          |
+
+
 
 Random baseline: 0.500. LSTM beats random on all 5 walk-forward folds.
 
@@ -63,16 +65,18 @@ python3 models.py
 
 ## Key Findings
 
-**LSTM** achieved the highest and most consistent hit rate (0.607 ± 0.057),
-beating random on every fold. **TCN** showed high variance (0.468 ± 0.140) —
-Fold 1 near-random but Fold 5 reaching 0.594, suggesting it requires more
-training data to learn stable filters. **Transformer** showed consistent
-improvement fold-over-fold (0.452 → 0.678) as training data grew, indicating
-it is the most data-hungry architecture.
+LSTM achieved the most consistent performance (0.588 ± 0.052 hit rate, 
+Sharpe 0.82), beating the random baseline on 4 of 5 folds. Low variance 
+across folds suggests the signal generalises across market regimes within 
+this session.
 
-Signal decay analysis shows all models have predictive power at the 50-tick
-(25 second) horizon with price reversal at very short horizons — consistent
-with market maker quote stuffing and adverse selection effects in BTC/USDT.
+Transformer showed the highest peak performance (Fold 5: 0.687) but high 
+variance (±0.118), consistent with being data-hungry — performance improved 
+monotonically as training set size grew fold over fold.
+
+TCN underperformed on early folds (0.357 in Fold 1) but recovered to 0.651 
+by Fold 5, suggesting convolutional filters require substantially more data 
+to learn than recurrent or attention-based approaches on this dataset.
 
 ## Limitations
 
